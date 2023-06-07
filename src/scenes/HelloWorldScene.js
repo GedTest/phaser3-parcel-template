@@ -1,39 +1,27 @@
 import Phaser from 'phaser'
 
-export default class HelloWorldScene extends Phaser.Scene
-{
-	constructor()
-	{
-		super('hello-world')
-	}
 
-	preload()
-    {
-        this.load.setBaseURL('http://labs.phaser.io')
+const ASTEROID = 'asteroid';
 
-        this.load.image('sky', 'assets/skies/space3.png')
-        this.load.image('logo', 'assets/sprites/phaser3-logo.png')
-        this.load.image('red', 'assets/particles/red.png')
+
+export default class HelloWorldScene extends Phaser.Scene {
+	constructor() {
+        super('game-scene')
+
+        this.player = undefined;
+
     }
 
-    create()
-    {
-        this.add.image(400, 300, 'sky')
+    preload() {
+        this.load.image(ASTEROID, 'assets/Asteroid1.png');
 
-        const particles = this.add.particles('red')
+    }
 
-        const emitter = particles.createEmitter({
-            speed: 100,
-            scale: { start: 1, end: 0 },
-            blendMode: 'ADD'
-        })
-
-        const logo = this.physics.add.image(400, 100, 'logo')
+    create() {
+        const logo = this.physics.add.image(400, 100, ASTEROID)
 
         logo.setVelocity(100, 200)
         logo.setBounce(1, 1)
         logo.setCollideWorldBounds(true)
-
-        emitter.startFollow(logo)
     }
 }
